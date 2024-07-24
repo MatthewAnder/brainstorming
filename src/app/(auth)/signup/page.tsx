@@ -19,7 +19,7 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-export default function HookForm() {
+export default function SignupForm() {
   const {
     handleSubmit,
     register,
