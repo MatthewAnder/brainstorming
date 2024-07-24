@@ -36,6 +36,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# playground for style
+/src/app/playground
+
 javascript/**/migrations/
 typescript/**/migrations/
 misc/**/migrations/
