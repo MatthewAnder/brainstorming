@@ -4,11 +4,9 @@ import { cookies } from "next/headers";
 import { cache } from "react";
 
 import type { Session, User } from "lucia";
-import { PrismaClient } from "@prisma/client";
+import prisma from "./prisma";
 
-const client = new PrismaClient();
-
-const adapter = new PrismaAdapter(client.session, client.user);
+const adapter = new PrismaAdapter(prisma.session, prisma.user);
 
 export const lucia = new Lucia(adapter, {
   sessionCookie: {
