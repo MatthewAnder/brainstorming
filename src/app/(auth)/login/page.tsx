@@ -8,7 +8,7 @@ import {
   Link as ChakraLink,
   FormControl,
   FormErrorMessage,
-  Heading
+  Heading,
 } from "@chakra-ui/react";
 import axios from "axios";
 import NextLink from "next/link";
@@ -98,7 +98,12 @@ export default function LoginPage() {
             Log In
           </Button>
         </form>
-        <ChakraLink as={NextLink} href="/signup" color={"smoke"}>
+        <ChakraLink
+          as={NextLink}
+          href="/signup"
+          color={"gray"}
+          fontWeight={"bold"}
+        >
           New Here?
         </ChakraLink>
       </Box>

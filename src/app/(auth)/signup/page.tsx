@@ -111,7 +111,12 @@ export default function SignupForm() {
             Submit
           </Button>
         </form>
-        <ChakraLink as={NextLink} href="/login" color={"smoke"}>
+        <ChakraLink
+          as={NextLink}
+          href="/login"
+          color={"gray"}
+          fontWeight={"bold"}
+        >
           Already a user?
         </ChakraLink>
       </Box>
