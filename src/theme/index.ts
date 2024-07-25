@@ -23,6 +23,9 @@ const theme = extendTheme({
       "html, body": {
         background: "background.main",
       },
+      label: {
+        color: "whitesmoke",
+      },
     },
   },
 });

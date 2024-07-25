@@ -12,44 +12,28 @@ import z from "zod";
 import axios from "axios";
 
 const schema = z.object({
-  username: z.string(),
   email: z.string(),
   password: z.string(),
 });
 
 type FormData = z.infer<typeof schema>;
 
-export default function SignupForm() {
+export default function LoginPage() {
   const {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
   } = useForm<FormData>();
 
-  async function onSubmit({ username, email, password }: FormData) {
-    await axios.post(`${process.env.NEXT_PUBLIC_HOST_URL}/api/auth/signup`, {
-      username,
+  async function onSubmit({ email, password }: FormData) {
+    await axios.post(`${process.env.NEXT_PUBLIC_HOST_URL}/api/auth/login`, {
       email,
       password,
     });
   }
-
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <FormControl isInvalid={Boolean(errors.username)}>
-        {/* Username */}
-        <FormLabel htmlFor="username">Username</FormLabel>
-        <Input
-          id="username"
-          placeholder="username"
-          {...register("username", {
-            required: "This is required",
-            minLength: { value: 4, message: "Minimum length should be 4" },
-          })}
-        />
-        <FormErrorMessage>
-          {errors.username && errors.username.message?.toString()}
-        </FormErrorMessage>
+      <FormControl isInvalid={Boolean(errors.email)}>
         {/* Email */}
         <FormLabel htmlFor="email">Email</FormLabel>
         <Input
@@ -62,7 +46,7 @@ export default function SignupForm() {
           })}
         />
         <FormErrorMessage>
-          {errors.username && errors.username.message?.toString()}
+          {errors.email && errors.email.message?.toString()}
         </FormErrorMessage>
         {/* Password */}
         <FormLabel htmlFor="password">Password</FormLabel>
@@ -76,7 +60,7 @@ export default function SignupForm() {
           })}
         />
         <FormErrorMessage>
-          {errors.username && errors.username.message?.toString()}
+          {errors.email && errors.email.message?.toString()}
         </FormErrorMessage>
       </FormControl>
       <Button mt={4} colorScheme="teal" isLoading={isSubmitting} type="submit">
