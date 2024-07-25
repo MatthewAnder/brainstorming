@@ -1,12 +1,24 @@
-import { FormLabel, Input, InputProps } from "@chakra-ui/react";
+import {
+  FormLabel,
+  Input,
+  InputProps,
+  FormErrorMessage,
+} from "@chakra-ui/react";
 import React from "react";
+import { FieldError } from "react-hook-form";
 
 interface TextInputProps extends InputProps {
   id: string;
   children: React.ReactNode;
+  errors?: FieldError;
 }
 
-export default function TextInput({ id, children, ...rest }: TextInputProps) {
+export default function TextInput({
+  id,
+  children,
+  errors,
+  ...rest
+}: TextInputProps) {
   return (
     <>
       <FormLabel htmlFor={id} fontSize={"xl"}>
@@ -14,13 +26,16 @@ export default function TextInput({ id, children, ...rest }: TextInputProps) {
       </FormLabel>
       <Input
         id={id}
-        type={id}
+        type={id === "confirmPassword" ? "password" : id}
         color={"smoke"}
         variant={"flushed"}
-        mb={5}
         _placeholder={{ color: "gray" }}
+        mb={errors ? 0 : 3}
         {...rest}
       />
+      <FormErrorMessage mb={errors && 2}>
+        {errors && errors.message?.toString()}
+      </FormErrorMessage>
     </>
   );
 }
