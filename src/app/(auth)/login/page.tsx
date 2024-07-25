@@ -9,6 +9,8 @@ import {
   FormControl,
   FormErrorMessage,
   Heading,
+  HStack,
+  Text,
 } from "@chakra-ui/react";
 import axios from "axios";
 import NextLink from "next/link";
@@ -83,16 +85,23 @@ export default function LoginPage() {
 
           <Button
             type="submit"
-            mt={4}
-            background={"primary.main"}
-            color={"smoke"}
             isLoading={isSubmitting}
+            loadingText="Submitting"
+            size={"lg"}
+            px={8}
+            my={4}
+            background={"primary.700"}
+            color={"smoke"}
+            transition={"0.2s"}
+            _hover={{
+              filter: "brightness(1.3)",
+            }}
           >
-            Submit
+            Log In
           </Button>
         </form>
         <ChakraLink as={NextLink} href="/signup" color={"smoke"}>
-          New here?
+          New Here?
         </ChakraLink>
       </Box>
     </Center>
