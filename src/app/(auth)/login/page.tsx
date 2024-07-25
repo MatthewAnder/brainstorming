@@ -8,9 +8,7 @@ import {
   Link as ChakraLink,
   FormControl,
   FormErrorMessage,
-  Heading,
-  HStack,
-  Text,
+  Heading
 } from "@chakra-ui/react";
 import axios from "axios";
 import NextLink from "next/link";
@@ -41,7 +39,7 @@ export default function LoginPage() {
     <Center width={"100vw"} height={"100vh"}>
       <Box
         w={500}
-        h={500}
+        h={600}
         px={10}
         borderRadius={"lg"}
         border={"1px solid"}
@@ -56,7 +54,7 @@ export default function LoginPage() {
             {/* Email */}
             <TextInput
               id="email"
-              placeholder="name@example.com"
+              placeholder="Enter your email address"
               {...register("email", {
                 required: "This is required",
                 minLength: { value: 4, message: "Minimum length should be 4" },
@@ -70,7 +68,7 @@ export default function LoginPage() {
             {/* Password */}
             <TextInput
               id="password"
-              placeholder="Must have at least 8 characters"
+              placeholder="Enter your password"
               {...register("password", {
                 required: "This is required",
                 minLength: { value: 4, message: "Minimum length should be 4" },
