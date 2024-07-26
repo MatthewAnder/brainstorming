@@ -6,8 +6,8 @@ import {
   Button,
   Center,
   Link as ChakraLink,
-  FormControl,
   Heading,
+  useToast
 } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
@@ -17,9 +17,9 @@ import z from "zod";
 
 const schema = z
   .object({
-    username: z.string({ message: "lol" }),
+    username: z.string().min(1, "This is required").max(10, "max"),
     email: z.string().email(),
-    password: z.string(),
+    password: z.string().min(8),
     confirmPassword: z.string(),
   })
   .refine((data) => data.password === data.confirmPassword, {
@@ -30,18 +30,35 @@ const schema = z
 type FormData = z.infer<typeof schema>;
 
 export default function SignupForm() {
+  const toast = useToast();
+
+  const resultToast = () =>
+    toast({
+      title: "Something is wrong!",
+      description: "This toast is a work in progress.",
+      status: "error",
+      duration: 9000,
+      isClosable: true,
+    });
+
   const {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
-  async function onSubmit({ username, email, password }: FormData) {
-    await axios.post(`${process.env.NEXT_PUBLIC_HOST_URL}/api/auth/signup`, {
-      username,
-      email,
-      password,
-    });
+  async function submitForm({ username, email, password }: FormData) {
+    await axios
+      .post(`${process.env.NEXT_PUBLIC_HOST_URL}/api/auth/signup`, {
+        username,
+        email,
+        password,
+      })
+      .catch((e) => {
+        if (axios.isAxiosError(e)) {
+          resultToast();
+        }
+      });
   }
 
   return (
@@ -58,41 +75,39 @@ export default function SignupForm() {
         <Heading fontSize={"6xl"} my={5}>
           Sign Up
         </Heading>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <FormControl>
-            <TextInput
-              id="username"
-              placeholder="Enter your username"
-              error={errors.username}
-              {...register("username")}
-            >
-              Username
-            </TextInput>
-            <TextInput
-              id="email"
-              placeholder="name@example.com"
-              error={errors.email}
-              {...register("email")}
-            >
-              Email
-            </TextInput>
-            <TextInput
-              id="password"
-              placeholder="Must have at least 8 characters"
-              error={errors.password}
-              {...register("password")}
-            >
-              Password
-            </TextInput>
-            <TextInput
-              id="confirmPassword"
-              placeholder="Retype your password"
-              error={errors.confirmPassword}
-              {...register("confirmPassword")}
-            >
-              Confirm Password
-            </TextInput>
-          </FormControl>
+        <form onSubmit={handleSubmit(submitForm)}>
+          <TextInput
+            id="username"
+            placeholder="Enter your username"
+            error={errors.username}
+            {...register("username")}
+          >
+            Username
+          </TextInput>
+          <TextInput
+            id="email"
+            placeholder="name@example.com"
+            error={errors.email}
+            {...register("email")}
+          >
+            Email
+          </TextInput>
+          <TextInput
+            id="password"
+            placeholder="Must have at least 8 characters"
+            error={errors.password}
+            {...register("password")}
+          >
+            Password
+          </TextInput>
+          <TextInput
+            id="confirmPassword"
+            placeholder="Retype your password"
+            error={errors.confirmPassword}
+            {...register("confirmPassword")}
+          >
+            Confirm Password
+          </TextInput>
           <Button
             type="submit"
             isLoading={isSubmitting}

@@ -4,6 +4,7 @@ import {
   InputProps,
   FormErrorMessage,
   forwardRef,
+  FormControl,
 } from "@chakra-ui/react";
 import React from "react";
 import { FieldError } from "react-hook-form";
@@ -17,7 +18,7 @@ interface TextInputProps extends InputProps {
 const TextInput = forwardRef<TextInputProps, "input">(
   ({ id, children, error, ...rest }, ref) => {
     return (
-      <>
+      <FormControl isInvalid={Boolean(error)}>
         <FormLabel htmlFor={id} fontSize={"xl"}>
           {children}
         </FormLabel>
@@ -34,7 +35,7 @@ const TextInput = forwardRef<TextInputProps, "input">(
         <FormErrorMessage mb={error && 2}>
           {error && error.message?.toString()}
         </FormErrorMessage>
-      </>
+      </FormControl>
     );
   }
 );

@@ -6,7 +6,6 @@ import {
   Button,
   Center,
   Link as ChakraLink,
-  FormControl,
   Heading
 } from "@chakra-ui/react";
 import axios from "axios";
@@ -49,27 +48,24 @@ export default function LoginPage() {
           Log In
         </Heading>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <FormControl isInvalid={Boolean(errors.email)}>
-            {/* Email */}
-            <TextInput
-              id="email"
-              placeholder="Enter your email address"
-              error={errors.email}
-              {...register("email")}
-            >
-              Email Address
-            </TextInput>
-            {/* Password */}
-            <TextInput
-              id="password"
-              placeholder="Enter your password"
-              error={errors.password}
-              {...register("password")}
-            >
-              Password
-            </TextInput>
-          </FormControl>
-
+          {/* Email */}
+          <TextInput
+            id="email"
+            placeholder="Enter your email address"
+            error={errors.email}
+            {...register("email")}
+          >
+            Email Address
+          </TextInput>
+          {/* Password */}
+          <TextInput
+            id="password"
+            placeholder="Enter your password"
+            error={errors.password}
+            {...register("password")}
+          >
+            Password
+          </TextInput>
           <Button
             type="submit"
             isLoading={isSubmitting}
