@@ -6,16 +6,17 @@ import {
   Button,
   Center,
   Link as ChakraLink,
-  Heading
+  Heading,
 } from "@chakra-ui/react";
 import axios from "axios";
 import NextLink from "next/link";
 import { useForm } from "react-hook-form";
 import z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const schema = z.object({
-  email: z.string(),
-  password: z.string(),
+  email: z.string().email(),
+  password: z.string().min(1, "This is required"),
 });
 
 type FormData = z.infer<typeof schema>;
@@ -25,7 +26,7 @@ export default function LoginPage() {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
-  } = useForm<FormData>();
+  } = useForm<FormData>({ resolver: zodResolver(schema) });
 
   const onSubmit = async ({ email, password }: FormData) => {
     await axios.post(`${process.env.NEXT_PUBLIC_HOST_URL}/api/auth/login`, {

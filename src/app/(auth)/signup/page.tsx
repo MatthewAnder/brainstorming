@@ -7,7 +7,7 @@ import {
   Center,
   Link as ChakraLink,
   Heading,
-  useToast
+  useToast,
 } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
@@ -19,7 +19,7 @@ const schema = z
   .object({
     username: z.string().min(1, "This is required").max(10, "max"),
     email: z.string().email(),
-    password: z.string().min(8),
+    password: z.string().min(8, "Password must contain at least 8 characters"),
     confirmPassword: z.string(),
   })
   .refine((data) => data.password === data.confirmPassword, {
@@ -102,7 +102,7 @@ export default function SignupForm() {
           </TextInput>
           <TextInput
             id="confirmPassword"
-            placeholder="Retype your password"
+            placeholder="Rewrite your password"
             error={errors.confirmPassword}
             {...register("confirmPassword")}
           >
