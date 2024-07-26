@@ -7,18 +7,17 @@ import {
   Center,
   Link as ChakraLink,
   FormControl,
-  FormErrorMessage,
   Heading,
 } from "@chakra-ui/react";
+import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import NextLink from "next/link";
 import { useForm } from "react-hook-form";
 import z from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
 
 const schema = z
   .object({
-    username: z.string().min(3).max(10),
+    username: z.string({ message: "lol" }),
     email: z.string().email(),
     password: z.string(),
     confirmPassword: z.string(),
@@ -60,11 +59,11 @@ export default function SignupForm() {
           Sign Up
         </Heading>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <FormControl isInvalid={Boolean(errors.username)}>
+          <FormControl>
             <TextInput
               id="username"
               placeholder="Enter your username"
-              errors={errors.username}
+              error={errors.username}
               {...register("username")}
             >
               Username
@@ -72,7 +71,7 @@ export default function SignupForm() {
             <TextInput
               id="email"
               placeholder="name@example.com"
-              errors={errors.email}
+              error={errors.email}
               {...register("email")}
             >
               Email
@@ -80,7 +79,7 @@ export default function SignupForm() {
             <TextInput
               id="password"
               placeholder="Must have at least 8 characters"
-              errors={errors.password}
+              error={errors.password}
               {...register("password")}
             >
               Password
@@ -88,7 +87,7 @@ export default function SignupForm() {
             <TextInput
               id="confirmPassword"
               placeholder="Retype your password"
-              errors={errors.confirmPassword}
+              error={errors.confirmPassword}
               {...register("confirmPassword")}
             >
               Confirm Password
