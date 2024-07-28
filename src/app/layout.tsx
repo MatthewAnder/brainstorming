@@ -1,6 +1,7 @@
 import RootProviders from "@/components/providers";
 import type { Metadata } from "next";
 import "./global.css";
+import Sidebar from "@/components/sidebar";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,7 +16,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <RootProviders>{children}</RootProviders>
+        <RootProviders>
+          <Sidebar />
+          {children}
+        </RootProviders>
       </body>
     </html>
   );
