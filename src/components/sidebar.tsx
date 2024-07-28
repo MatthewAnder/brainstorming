@@ -65,7 +65,7 @@ export default function Sidebar() {
         <Input
           type="tel"
           placeholder="Search..."
-          color={"white"}
+          color={"smoke"}
           bg={"inherit"}
           variant={"flushed"}
           borderBottomColor={"border"}
@@ -94,7 +94,7 @@ export default function Sidebar() {
                 "#0d0c0d 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px"
               }
             >
-              <Heading fontSize={"xs"} color={"whitesmoke"}>
+              <Heading fontSize={"xs"} color={"smoke"}>
                 {val.title}
               </Heading>
               <Text fontSize={"x-small"} color={"gray"}>
@@ -111,7 +111,7 @@ export default function Sidebar() {
           icon={<AddIcon />}
           width={"70%"}
           background={"border"}
-          color={"white"}
+          color={"smoke"}
           transition={".3s"}
           _hover={{ filter: "brightness(1.2)" }}
         />

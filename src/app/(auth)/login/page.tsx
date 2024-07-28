@@ -7,7 +7,7 @@ import {
   Button,
   Center,
   Link as ChakraLink,
-  Heading
+  Heading,
 } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
@@ -15,21 +15,14 @@ import NextLink from "next/link";
 import { useForm } from "react-hook-form";
 import z from "zod";
 
-const schema = z
-  .object({
-    username: z.string().min(1, "This is required"),
-    email: z.string().min(1, "This is required").email(),
-    password: z.string().min(8, "Password must contain at least 8 characters"),
-    confirmPassword: z.string().min(1, "This is required"),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords do not match",
-    path: ["confirmPassword"],
-  });
+const schema = z.object({
+  email: z.string().email(),
+  password: z.string().min(1, "This is required"),
+});
 
 type FormData = z.infer<typeof schema>;
 
-export default function SignupForm() {
+export default function LoginPage() {
   const { makeToast } = CustomToast();
 
   const {
@@ -38,10 +31,9 @@ export default function SignupForm() {
     formState: { errors, isSubmitting },
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
-  async function submitForm({ username, email, password }: FormData) {
+  const onSubmit = async ({ email, password }: FormData) => {
     await axios
-      .post(`${process.env.NEXT_PUBLIC_HOST_URL}/api/auth/signup`, {
-        username,
+      .post(`${process.env.NEXT_PUBLIC_HOST_URL}/api/auth/login`, {
         email,
         password,
       })
@@ -50,13 +42,12 @@ export default function SignupForm() {
           makeToast(e.response?.data, "Hello World!");
         }
       });
-  }
-
+  };
   return (
     <Center width={"100vw"} height={"100vh"}>
       <Box
         w={500}
-        h={700}
+        h={600}
         px={10}
         borderRadius={"lg"}
         border={"1px solid"}
@@ -64,40 +55,26 @@ export default function SignupForm() {
         background={"surface"}
       >
         <Heading fontSize={"6xl"} my={5}>
-          Sign Up
+          Log In
         </Heading>
-        <form onSubmit={handleSubmit(submitForm)}>
-          <TextInput
-            id="username"
-            placeholder="Enter your username"
-            error={errors.username}
-            {...register("username")}
-          >
-            Username
-          </TextInput>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          {/* Email */}
           <TextInput
             id="email"
-            placeholder="name@example.com"
+            placeholder="Enter your email address"
             error={errors.email}
             {...register("email")}
           >
-            Email
+            Email Address
           </TextInput>
+          {/* Password */}
           <TextInput
             id="password"
-            placeholder="Must have at least 8 characters"
+            placeholder="Enter your password"
             error={errors.password}
             {...register("password")}
           >
             Password
-          </TextInput>
-          <TextInput
-            id="confirmPassword"
-            placeholder="Rewrite your password"
-            error={errors.confirmPassword}
-            {...register("confirmPassword")}
-          >
-            Confirm Password
           </TextInput>
           <Button
             type="submit"
@@ -113,16 +90,16 @@ export default function SignupForm() {
               filter: "brightness(1.3)",
             }}
           >
-            Submit
+            Log In
           </Button>
         </form>
         <ChakraLink
           as={NextLink}
-          href="/login"
+          href="/signup"
           color={"gray"}
           fontWeight={"bold"}
         >
-          Already a user?
+          New Here?
         </ChakraLink>
       </Box>
     </Center>

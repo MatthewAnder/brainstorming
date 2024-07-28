@@ -1,5 +1,5 @@
 const colors = {
-  whitesmoke: "#fff7f8",
+  smoke: "#fff7f8",
   surface: "#232222",
   border: "#353534",
   background: {

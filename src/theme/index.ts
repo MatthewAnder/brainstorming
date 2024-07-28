@@ -14,6 +14,10 @@ const bodyFont = PT_Sans({
 const theme = extendTheme({
   components,
   colors,
+  config: {
+    initialColorMode: "dark",
+    useSystemColorMode: false,
+  },
   fonts: {
     heading: headingFont.style.fontFamily,
     body: bodyFont.style.fontFamily,
@@ -22,6 +26,9 @@ const theme = extendTheme({
     global: {
       "html, body": {
         background: "background.main",
+      },
+      label: {
+        color: "smoke",
       },
     },
   },

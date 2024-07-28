@@ -2,13 +2,13 @@ import { defineStyleConfig } from "@chakra-ui/react";
 
 const Heading = defineStyleConfig({
   baseStyle: {
-    color: "whitesmoke",
+    color: "smoke",
   },
 });
 
 const Text = defineStyleConfig({
   baseStyle: {
-    color: "whitesmoke",
+    color: "smoke",
   },
   variants: {
     subtle: {
