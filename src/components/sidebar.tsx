@@ -1,12 +1,16 @@
 "use client";
 
-import { SettingsIcon } from "@chakra-ui/icons";
+import { SearchIcon, SettingsIcon } from "@chakra-ui/icons";
 import {
+  Icon,
   Avatar,
   Box,
   Center,
   Heading,
   IconButton,
+  Input,
+  InputGroup,
+  InputLeftElement,
   Text,
   VStack,
 } from "@chakra-ui/react";
@@ -48,6 +52,21 @@ export default function Sidebar() {
           </Text>
         </VStack>
       </Center>
+      <InputGroup px={4}>
+        <InputLeftElement pointerEvents="none" ml={4}>
+          <SearchIcon color="gray" />
+        </InputLeftElement>
+        <Input
+          type="tel"
+          placeholder="Search..."
+          color={"white"}
+          bg={"inherit"}
+          variant={"flushed"}
+          borderBottomColor={"border"}
+          focusBorderColor={"primary.main"}
+          _placeholder={{ color: "gray" }}
+        />
+      </InputGroup>
     </Box>
   );
 }
