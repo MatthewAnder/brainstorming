@@ -28,7 +28,7 @@ const theme = extendTheme({
         background: "background.main",
       },
       label: {
-        color: "whitesmoke",
+        color: "smoke",
       },
     },
   },
