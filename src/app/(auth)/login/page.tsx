@@ -1,5 +1,6 @@
 "use client";
 
+import CustomToast from "@/components/customToast";
 import TextInput from "@/components/textInput";
 import {
   Box,
@@ -16,12 +17,14 @@ import z from "zod";
 
 const schema = z.object({
   email: z.string().email(),
-  password: z.string().min(8, "This is required"),
+  password: z.string().min(1, "This is required"),
 });
 
 type FormData = z.infer<typeof schema>;
 
 export default function LoginPage() {
+  const { makeToast } = CustomToast();
+
   const {
     handleSubmit,
     register,
@@ -36,8 +39,7 @@ export default function LoginPage() {
       })
       .catch((e) => {
         if (axios.isAxiosError(e)) {
-          console.log(e.response?.data);
-          // add toast
+          makeToast(e.response?.data, "Hello World!");
         }
       });
   };

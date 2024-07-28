@@ -1,13 +1,13 @@
 "use client";
 
+import CustomToast from "@/components/customToast";
 import TextInput from "@/components/textInput";
 import {
   Box,
   Button,
   Center,
   Link as ChakraLink,
-  Heading,
-  useToast,
+  Heading
 } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
@@ -30,16 +30,7 @@ const schema = z
 type FormData = z.infer<typeof schema>;
 
 export default function SignupForm() {
-  const toast = useToast();
-
-  const resultToast = () =>
-    toast({
-      title: "Something is wrong!",
-      description: "This toast is a work in progress.",
-      status: "error",
-      duration: 9000,
-      isClosable: true,
-    });
+  const { makeToast } = CustomToast();
 
   const {
     handleSubmit,
@@ -56,7 +47,7 @@ export default function SignupForm() {
       })
       .catch((e) => {
         if (axios.isAxiosError(e)) {
-          resultToast();
+          makeToast(e.response?.data, "Hello World!");
         }
       });
   }
