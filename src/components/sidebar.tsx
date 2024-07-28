@@ -24,6 +24,9 @@ const books: Book[] = [];
 export default function Sidebar() {
   return (
     <Box
+      position={"sticky"}
+      top={0}
+      left={0}
       width={400}
       height={"100vh"}
       borderRight={"2px solid"}
