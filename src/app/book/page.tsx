@@ -45,12 +45,11 @@ export default function Sample() {
   }
 
   return (
-    <Box>
+    <Box w={"100%"}>
       <header
         style={{
-          padding: "20px",
+          padding: 20,
           borderBottom: "2px solid #353534",
-          borderColor: "border",
         }}
       >
         <Heading fontSize={"lg"}>react-pdf sample page</Heading>
@@ -59,7 +58,6 @@ export default function Sample() {
         flexDir={"column"}
         alignItems={"center"}
         p={5}
-        mx={5}
         ref={setContainerRef}
       >
         <Document

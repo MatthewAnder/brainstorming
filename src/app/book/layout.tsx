@@ -8,7 +8,7 @@ export default function BookLayout({
   children: React.ReactNode;
 }) {
   return (
-    <HStack>
+    <HStack alignItems={"start"} gap={0}>
       <Sidebar />
       {children}
     </HStack>
