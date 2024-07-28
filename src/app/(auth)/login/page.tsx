@@ -9,14 +9,14 @@ import {
   Heading,
 } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import NextLink from "next/link";
 import { useForm } from "react-hook-form";
 import z from "zod";
 
 const schema = z.object({
   email: z.string().email(),
-  password: z.string().min(1, "This is required"),
+  password: z.string().min(8, "This is required"),
 });
 
 type FormData = z.infer<typeof schema>;
