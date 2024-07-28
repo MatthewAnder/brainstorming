@@ -11,8 +11,10 @@ import {
   InputGroup,
   InputLeftElement,
   Text,
+  useDisclosure,
   VStack,
 } from "@chakra-ui/react";
+import BookForm from "./bookForm";
 
 interface Book {
   title: string;
@@ -22,6 +24,7 @@ interface Book {
 const books: Book[] = [];
 
 export default function Sidebar() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Box
       position={"sticky"}
@@ -117,7 +120,11 @@ export default function Sidebar() {
           color={"smoke"}
           transition={".3s"}
           _hover={{ filter: "brightness(1.2)" }}
+          onClick={onOpen}
         />
+        <BookForm isOpen={isOpen} onClose={onClose}>
+          <></>
+        </BookForm>
       </Center>
     </Box>
   );
