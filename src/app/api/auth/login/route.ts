@@ -20,7 +20,9 @@ export async function POST(req: NextRequest) {
   });
 
   if (!user) {
-    return;
+    return new NextResponse("Email not found", {
+      status: 400,
+    });
   }
 
   const validPassword = await verify(user.password_hash, password, {
@@ -29,6 +31,12 @@ export async function POST(req: NextRequest) {
     outputLen: 32,
     parallelism: 1,
   });
+
+  if (!validPassword) {
+    return new NextResponse("Invalid Password", {
+      status: 400,
+    });
+  }
 
   const session = await lucia.createSession(user.id, {});
   const sessionCookie = lucia.createSessionCookie(session.id);

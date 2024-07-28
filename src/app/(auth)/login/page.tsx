@@ -8,11 +8,11 @@ import {
   Link as ChakraLink,
   Heading,
 } from "@chakra-ui/react";
-import axios from "axios";
+import { zodResolver } from "@hookform/resolvers/zod";
+import axios, { AxiosResponse } from "axios";
 import NextLink from "next/link";
 import { useForm } from "react-hook-form";
 import z from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
 
 const schema = z.object({
   email: z.string().email(),
@@ -29,10 +29,17 @@ export default function LoginPage() {
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
   const onSubmit = async ({ email, password }: FormData) => {
-    await axios.post(`${process.env.NEXT_PUBLIC_HOST_URL}/api/auth/login`, {
-      email,
-      password,
-    });
+    await axios
+      .post(`${process.env.NEXT_PUBLIC_HOST_URL}/api/auth/login`, {
+        email,
+        password,
+      })
+      .catch((e) => {
+        if (axios.isAxiosError(e)) {
+          console.log(e.response?.data);
+          // add toast
+        }
+      });
   };
   return (
     <Center width={"100vw"} height={"100vh"}>
