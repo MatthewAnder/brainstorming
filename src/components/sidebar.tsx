@@ -1,8 +1,7 @@
 "use client";
 
-import { SearchIcon, SettingsIcon } from "@chakra-ui/icons";
+import { AddIcon, SearchIcon, SettingsIcon } from "@chakra-ui/icons";
 import {
-  Icon,
   Avatar,
   Box,
   Center,
@@ -15,10 +14,17 @@ import {
   VStack,
 } from "@chakra-ui/react";
 
+interface Book {
+  title: string;
+  url: string;
+}
+
+const books: Book[] = [];
+
 export default function Sidebar() {
   return (
     <Box
-      width={300}
+      width={400}
       height={"100vh"}
       borderRight={"2px solid"}
       borderColor={"border"}
@@ -67,6 +73,49 @@ export default function Sidebar() {
           _placeholder={{ color: "gray" }}
         />
       </InputGroup>
+      {/*  */}
+      {books.length <= 0 ? (
+        <Center my={5}>
+          <Text color={"gray"}>No books yet!</Text>
+        </Center>
+      ) : (
+        books.map((val) => {
+          return (
+            <Box
+              key={val.title}
+              background={"surface"}
+              my={5}
+              mx={4}
+              p={4}
+              border={"1px solid"}
+              borderColor={"border"}
+              rounded={"md"}
+              boxShadow={
+                "#0d0c0d 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px"
+              }
+            >
+              <Heading fontSize={"xs"} color={"whitesmoke"}>
+                {val.title}
+              </Heading>
+              <Text fontSize={"x-small"} color={"gray"}>
+                {val.url}
+              </Text>
+            </Box>
+          );
+        })
+      )}
+      {/*  */}
+      <Center>
+        <IconButton
+          aria-label="add item"
+          icon={<AddIcon />}
+          width={"70%"}
+          background={"border"}
+          color={"white"}
+          transition={".3s"}
+          _hover={{ filter: "brightness(1.2)" }}
+        />
+      </Center>
     </Box>
   );
 }
