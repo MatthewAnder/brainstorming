@@ -1,3 +1,5 @@
+"use client";
+
 import TextInput from "@/components/textInput";
 import {
   Button,
@@ -12,12 +14,13 @@ import {
   Heading,
 } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
 import { useForm } from "react-hook-form";
 import z from "zod";
 
 const schema = z.object({
-  title: z.string().min(1, "This is required"),
-  url: z.string().min(1, "This is required"),
+  title: z.string(),
+  url: z.string().url(),
 });
 
 type FormData = z.infer<typeof schema>;
@@ -30,7 +33,16 @@ export default function BookForm({ ...props }: ModalProps) {
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
   const submitForm = async ({ title, url }: FormData) => {
-    console.log(title, url);
+    await axios
+      .post(`${process.env.NEXT_PUBLIC_HOST_URL}/api/book/create`, {
+        title,
+        url,
+      })
+      .catch((e) => {
+        if (axios.isAxiosError(e)) {
+          console.log(e.response?.data);
+        }
+      });
   };
 
   return (
