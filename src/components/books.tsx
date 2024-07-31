@@ -49,7 +49,7 @@ export default function Books() {
             <Heading fontSize={"xs"} color={"smoke"}>
               <LinkOverlay
                 as={NextLink}
-                href={`${process.env.NEXT_PUBLIC_HOST_URL}/book/${book.title}`}
+                href={`${process.env.NEXT_PUBLIC_HOST_URL}/${book.title}`}
               >
                 {book.title}
               </LinkOverlay>

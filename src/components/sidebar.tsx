@@ -47,7 +47,7 @@ export default function Sidebar() {
         <VStack>
           <Avatar
             name="Oshigaki Kisame"
-            src="https://bit.ly/broken-link"
+            src=""
             size={"lg"}
             bg={"primary.main"}
           />
