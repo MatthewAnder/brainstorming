@@ -1,14 +1,15 @@
-import { Box, Heading, Text, Center } from "@chakra-ui/react";
+import {
+  Box,
+  Heading,
+  Text,
+  Center,
+  LinkBox,
+  LinkOverlay,
+} from "@chakra-ui/react";
+import { Book } from "@prisma/client";
 import axios from "axios";
 import useSWR from "swr";
-import z from "zod";
-
-const schema = z.object({
-  title: z.string(),
-  url: z.string().url(),
-});
-
-type Book = z.infer<typeof schema>;
+import NextLink from "next/link";
 
 const fetcher = async (url: string) => {
   return await axios.get(url).then((res) => res.data);
@@ -32,8 +33,8 @@ export default function Books() {
     <>
       {books.map((book) => {
         return (
-          <Box
-            key={book.title}
+          <LinkBox
+            key={book.id}
             background={"surface"}
             my={5}
             mx={4}
@@ -46,12 +47,17 @@ export default function Books() {
             }
           >
             <Heading fontSize={"xs"} color={"smoke"}>
-              {book.title}
+              <LinkOverlay
+                as={NextLink}
+                href={`${process.env.NEXT_PUBLIC_HOST_URL}/book/${book.title}`}
+              >
+                {book.title}
+              </LinkOverlay>
             </Heading>
             <Text fontSize={"x-small"} color={"gray"}>
               {book.url}
             </Text>
-          </Box>
+          </LinkBox>
         );
       })}
     </>
