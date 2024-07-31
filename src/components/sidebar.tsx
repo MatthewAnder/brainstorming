@@ -14,17 +14,12 @@ import {
   useDisclosure,
   VStack,
 } from "@chakra-ui/react";
+import Books from "./books";
 import BookForm from "./bookForm";
-
-interface Book {
-  title: string;
-  url: string;
-}
-
-const books: Book[] = [];
 
 export default function Sidebar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
     <Box
       position={"sticky"}
@@ -79,41 +74,11 @@ export default function Sidebar() {
           _placeholder={{ color: "gray" }}
         />
       </InputGroup>
-      {/*  */}
-      {books.length <= 0 ? (
-        <Center my={5}>
-          <Text color={"gray"}>No books yet!</Text>
-        </Center>
-      ) : (
-        books.map((val) => {
-          return (
-            <Box
-              key={val.title}
-              background={"surface"}
-              my={5}
-              mx={4}
-              p={4}
-              border={"1px solid"}
-              borderColor={"border"}
-              rounded={"md"}
-              boxShadow={
-                "#0d0c0d 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px"
-              }
-            >
-              <Heading fontSize={"xs"} color={"smoke"}>
-                {val.title}
-              </Heading>
-              <Text fontSize={"x-small"} color={"gray"}>
-                {val.url}
-              </Text>
-            </Box>
-          );
-        })
-      )}
-      {/*  */}
+      <Books />
       <Center>
         <IconButton
           aria-label="add item"
+          my={5}
           icon={<AddIcon />}
           width={"70%"}
           background={"border"}

@@ -3,6 +3,7 @@
 import TextInput from "@/components/textInput";
 import {
   Button,
+  Heading,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -11,7 +12,6 @@ import {
   ModalHeader,
   ModalOverlay,
   ModalProps,
-  Heading,
 } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
@@ -29,6 +29,7 @@ export default function BookForm({ ...props }: ModalProps) {
   const {
     handleSubmit,
     register,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
@@ -43,6 +44,7 @@ export default function BookForm({ ...props }: ModalProps) {
           console.log(e.response?.data);
         }
       });
+    reset({ title: "", url: "" });
   };
 
   return (
